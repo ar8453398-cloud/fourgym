@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FOURGYM - IPFBC</title>
+<style>
+/* CODIGO FACIL DE EDITAR - PROYECTO ESCOLAR FourGym */
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial, Helvetica, sans-serif}
+body{background:#f5f7fa;color:#0a1931}
+header{position:fixed;top:0;left:0;right:0;z-index:100;background:#0f4fc0;height:70px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;box-shadow:0 4px 20px rgba(0,0,0,.2)}
+.logo{color:white;font-weight:900;font-size:26px;cursor:pointer} .logo span{color:#38bdf8}
+nav{display:flex;gap:20px;align-items:center}
+nav a{color:white;text-decoration:none;font-weight:800;font-size:13px;text-transform:uppercase;cursor:pointer;padding:6px 12px;border-radius:20px}
+nav a:hover{background:rgba(255,255,255,.15);color:#38bdf8}
+.dropdown{position:relative}
+.dropdown-content{position:absolute;top:35px;left:50%;transform:translateX(-50%);background:white;border-radius:10px;box-shadow:0 12px 30px rgba(0,0,0,.2);min-width:190px;display:none;overflow:hidden;border:1px solid #eee}
+.dropdown-content a{color:#0a1931;display:block;padding:10px 16px;font-size:13px}
+.dropdown-content a:hover{background:#0f4fc0;color:white}
+.dropdown:hover .dropdown-content{display:block}
+.hamburger{display:none;color:white;font-size:28px;cursor:pointer;border:1px solid rgba(255,255,255,.5);padding:4px 10px;border-radius:8px}
+.mobile-menu{display:none;position:fixed;top:70px;left:0;right:0;background:#0a1931;padding:20px;flex-direction:column;gap:12px;z-index:99}
+.mobile-menu a{color:white;text-decoration:none;font-weight:800;font-size:14px;text-transform:uppercase;padding:10px;border-bottom:1px solid rgba(255,255,255,.1)}
+@media(max-width:900px){nav{display:none}.hamburger{display:block}}
+/* BANNER */
+.banner{margin-top:70px;background:linear-gradient(135deg,#0a1931 0%,#0f4fc0 100%);padding:60px 20px;display:flex;align-items:center;justify-content:center;gap:40px;flex-wrap:wrap;position:relative;overflow:hidden}
+.banner::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:repeating-linear-gradient(0deg,rgba(56,189,248,.05) 0 1px,transparent 1px 40px),repeating-linear-gradient(90deg,rgba(56,189,248,.05) 0 1px,transparent 1px 40px)}
+.robot{font-size:140px;filter:drop-shadow(0 0 20px #38bdf8);animation:bounce 2s infinite;z-index:1}
+.banner-text{z-index:1;text-align:center}
+.banner-text h1{font-size:64px;font-weight:900;line-height:0.9}.banner-text h1 .white{color:white}.banner-text h1 .blue{color:#00d4ff}
+.banner-text p{color:white;font-weight:800;letter-spacing:3px;margin-top:12px;font-size:14px}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+/* SECCIONES */
+section{padding:60px 20px;max-width:1280px;margin:0 auto}
+.section-title{color:#0f4fc0;font-size:26px;font-weight:900;text-transform:uppercase;border-bottom:3px solid #0f4fc0;padding-bottom:10px;margin-bottom:30px}
+.grid-planes{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.card{background:white;border-radius:14px;padding:20px;box-shadow:0 6px 20px rgba(0,0,0,.08);border:1px solid #eee;transition:.3s}
+.card:hover{transform:translateY(-6px);box-shadow:0 12px 30px rgba(0,0,0,.15)}
+.card h3{font-size:18px;font-weight:900;margin-bottom:6px}
+.card .precio{color:#0f4fc0;font-weight:900;font-size:22px;margin:10px 0}
+.card .specs{font-size:12px;color:#555;margin:8px 0;line-height:1.8}
+.btn{border:none;padding:10px 18px;border-radius:8px;font-weight:900;cursor:pointer;text-transform:uppercase;font-size:13px}
+.btn-blue{background:#0f4fc0;color:white} .btn-blue:hover{background:#0a1931}
+.btn-red{background:#ef4444;color:white}
+/* FORMULARIOS */
+.form-box{background:white;max-width:620px;margin:0 auto;border-radius:14px;padding:30px;box-shadow:0 8px 30px rgba(0,0,0,.1);border:1px solid #e5e7eb}
+.form-box h2{font-size:20px;font-weight:900;text-transform:uppercase;margin-bottom:20px;text-align:center}
+.form-box label{display:block;font-size:11px;font-weight:900;text-transform:uppercase;margin:14px 0 6px}
+.form-box input,.form-box select,.form-box textarea{width:100%;padding:11px 14px;border:1px solid #ddd;border-radius:8px;font-size:14px}
+.form-box input:focus{border-color:#0f4fc0;outline:none;box-shadow:0 0 0 3px rgba(15,79,192,.15)}
+.resultado-imc{margin-top:16px;padding:14px;border-radius:10px;text-align:center;font-weight:800}
+/* EQUIPO */
+.equipo{background:#1e293b;color:white;padding:60px 20px}
+.equipo h2{text-align:center;font-size:26px;font-weight:900;text-transform:uppercase}
+.grid-equipo{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;max-width:1100px;margin:30px auto 0}
+.miembro{background:#0f172a;border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:20px}
+.miembro .inicial{width:46px;height:46px;background:#0f4fc0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:20px;color:white}
+footer{background:#0a1931;color:rgba(255,255,255,.6);padding:30px 20px;text-align:center;font-size:12px;font-weight:700}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo" onclick="scrollToId('inicio')">Four<span>Gym</span></div>
+  <nav id="desktopNav">
+    <a onclick="scrollToId('inicio')">Inicio</a>
+    <a onclick="scrollToId('planes')">Planes</a>
+    <a onclick="scrollToId('servicios')">Servicios</a>
+    <div class="dropdown">
+      <a>Formularios ▼</a>
+      <div class="dropdown-content">
+        <a onclick="scrollToId('inscripcion')">📝 Inscripción</a>
+        <a onclick="scrollToId('imc')">🧮 Calculadora IMC</a>
+        <a onclick="scrollToId('contacto')">📩 Contacto</a>
+      </div>
+    </div>
+    <a onclick="scrollToId('equipo')">Equipo</a>
+  </nav>
+  <div class="hamburger" onclick="toggleMobile()">☰</div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a onclick="scrollToId('inicio');toggleMobile()">Inicio</a>
+  <a onclick="scrollToId('planes');toggleMobile()">Planes</a>
+  <a onclick="scrollToId('servicios');toggleMobile()">Servicios</a>
+  <a onclick="scrollToId('inscripcion');toggleMobile()">📝 Inscripción</a>
+  <a onclick="scrollToId('imc');toggleMobile()">🧮 Calculadora IMC</a>
+  <a onclick="scrollToId('contacto');toggleMobile()">📩 Contacto</a>
+  <a onclick="scrollToId('equipo');toggleMobile()">Equipo</a>
+</div>
+
+<div class="banner" id="inicio">
+  <div class="robot">💪</div>
+  <div class="banner-text">
+    <h1><span class="white">Four</span><span class="blue">GYM</span></h1>
+    <p>— FUERZA AL MEJOR PRECIO —</p>
+    <p style="letter-spacing:1px;font-size:12px;margin-top:8px;opacity:.8">TECNOLOGÍA Y FITNESS EN SONAGUERA</p>
+  </div>
+</div>
+
+<section id="planes">
+  <h2 class="section-title">Membresías FourGym Completas</h2>
+  <div class="grid-planes">
+    <div class="card">
+      <div style="font-size:40px">🏋️</div>
+      <h3>Plan Básico</h3><div class="precio">L 600 / mes</div>
+      <div class="specs">⏱️ 1 Mes<br>💪 Pesas Libres<br>🔒 Casillero<br>🕐 5AM - 9PM</div>
+      <button class="btn btn-blue" onclick="scrollToId('inscripcion')">Ver Plan</button>
+    </div>
+    <div class="card" style="border:2px solid #0f4fc0">
+      <div style="background:#0f4fc0;color:white;font-size:10px;font-weight:900;padding:4px 10px;border-radius:20px;display:inline-block;margin-bottom:8px">MÁS POPULAR</div>
+      <div style="font-size:40px">🔥</div>
+      <h3>Plan Intermedio</h3><div class="precio">L 900 / mes</div>
+      <div class="specs">🧘 Clases Ilimitadas<br>👤 2 Sesiones PT<br>📊 Evaluación Física<br>⏱️ Todo del Básico</div>
+      <button class="btn btn-blue" onclick="scrollToId('inscripcion')">Ver Plan</button>
+    </div>
+    <div class="card">
+      <div style="font-size:40px">⭐</div>
+      <h3>Plan Premium</h3><div class="precio">L 1200 / mes</div>
+      <div class="specs">🥗 Plan Nutricional<br>👥 Invitados Gratis<br>👤 PT Ilimitado<br>🔥 Todo Intermedio</div>
+      <button class="btn btn-blue" onclick="scrollToId('inscripcion')">Ver Plan</button>
+    </div>
+    <div class="card">
+      <div style="font-size:40px">🎓</div>
+      <h3>Plan Estudiante</h3><div class="precio">L 500 / mes</div>
+      <div class="specs">🪪 Solo con Carnet<br>💪 Acceso Total<br>🕐 5AM - 9PM<br>🎓 Descuento Estudiantil</div>
+      <button class="btn btn-blue" onclick="scrollToId('inscripcion')">Ver Plan</button>
+    </div>
+  </div>
+</section>
+
+<section id="servicios" style="background:white">
+  <h2 class="section-title">Nuestros Servicios</h2>
+  <div class="grid-planes">
+    <div class="card"><div style="font-size:32px">🏋️</div><h3>Musculación</h3><p style="font-size:13px;color:#555;margin-top:8px">Máquinas profesionales, pesas libres hasta 150kg, racks y bancos olímpicos.</p></div>
+    <div class="card"><div style="font-size:32px">🏃</div><h3>Cardio Zone</h3><p style="font-size:13px;color:#555;margin-top:8px">Trotadoras, elípticas, bicicletas, escaladoras con pantallas táctiles.</p></div>
+    <div class="card"><div style="font-size:32px">🧘</div><h3>Clases Grupales</h3><p style="font-size:13px;color:#555;margin-top:8px">Zumba, Spinning, CrossFit, Yoga. Lunes a Sábado con instructores certificados.</p></div>
+  </div>
+</section>
+
+<section id="inscripcion">
+  <div class="form-box">
+    <h2>📝 Formulario de Inscripción - FourGym</h2>
+    <form onsubmit="enviarInscripcion(event)">
+      <label>Nombre Completo</label><input type="text" id="inscNombre" placeholder="Ej: Alex Rivera" required>
+      <label>Teléfono</label><input type="tel" id="inscTel" placeholder="9876-1234" required>
+      <label>Edad</label><input type="number" id="inscEdad" placeholder="18">
+      <label>Plan Seleccionado</label>
+      <select id="inscPlan"><option>Plan Básico - L 600/mes</option><option>Plan Intermedio - L 900/mes</option><option>Plan Premium - L 1200/mes</option><option>Plan Estudiante - L 500/mes</option></select>
+      <label>Fecha de Inicio</label><input type="date" id="inscFecha">
+      <label>Mensaje</label><textarea id="inscMsg" rows="3" placeholder="¿Algo que quieras agregar?"></textarea>
+      <button type="submit" class="btn btn-red" style="width:100%;margin-top:16px;padding:14px">Inscribirme Ahora</button>
+    </form>
+  </div>
+</section>
+
+<section id="imc" style="background:#eef2ff">
+  <div class="form-box">
+    <h2>🧮 Calculadora de IMC - Evaluación Gratis</h2>
+    <form onsubmit="calcularIMC(event)">
+      <label>Peso (kg)</label><input type="number" step="0.1" id="peso" placeholder="Ej: 70" required>
+      <label>Altura (m) - Ej: 1.70</label><input type="number" step="0.01" id="altura" placeholder="Ej: 1.70" required>
+      <label>Edad</label><input type="number" id="edadIMC" placeholder="18">
+      <button type="submit" class="btn btn-blue" style="width:100%;margin-top:16px;padding:14px">Calcular IMC</button>
+      <div id="resultadoIMC" class="resultado-imc" style="display:none"></div>
+    </form>
+  </div>
+</section>
+
+<section id="contacto">
+  <div class="form-box">
+    <h2>📩 Formulario de Contacto</h2>
+    <form onsubmit="enviarContacto(event)">
+      <label>Nombre</label><input type="text" id="contNombre" required>
+      <label>Email</label><input type="email" id="contEmail" placeholder="tu@email.com" required>
+      <label>Teléfono</label><input type="tel" id="contTel">
+      <label>Motivo</label><select id="contMotivo"><option>Información</option><option>Reclamo</option><option>Sugerencia</option></select>
+      <label>Mensaje</label><textarea id="contMsg" rows="4" placeholder="¿En qué podemos ayudarte?"></textarea>
+      <button type="submit" class="btn btn-blue" style="width:100%;margin-top:16px;padding:14px">Enviar Mensaje</button>
+    </form>
+  </div>
+</section>
+
+<div class="equipo" id="equipo">
+  <h2>Proyecto Escolar - Participantes FourGym</h2>
+  <p style="text-align:center;color:#94a3b8;font-size:12px;margin-top:8px;font-weight:800;letter-spacing:1px">INSTITUTO FRAY BARTOLOMÉ DE LAS CASAS</p>
+  <div class="grid-equipo">
+    <div class="miembro"><div style="display:flex;gap:14px;align-items:center"><div class="inicial">A</div><div>
+          <div style="font-weight:900;color:white">Alex Daniel Rivera</div><div style="color:#38bdf8;font-size:11px;font-weight:800;text-transform:uppercase">Desarrollador Principal</div></div></div>
+    <p style="margin-top:14px;color:#94a3b8;font-size:13px">LIDER DE ARQUITECTURA WEB PRINCIPAL</p></div>
+    <div class="miembro"><div style="display:flex;gap:14px;align-items:center"><div class="inicial">J</div><div>
+          <div style="font-weight:900;color:white">Santos Josue Acosta</div><div style="color:#38bdf8;font-size:11px;font-weight:800;text-transform:uppercase">Desarrollador</div></div></div><p style="margin-top:14px;color:#94a3b8;font-size:13px">Formularios, validaciones y calculadora IMC funcional.</p></div>
+    <div class="miembro"><div style="display:flex;gap:14px;align-items:center"><div class="inicial">I</div><div>
+          <div style="font-weight:900;color:white">Ivan Isai Goméz</div><div style="color:#38bdf8;font-size:11px;font-weight:800;text-transform:uppercase">Diseño y Contenido</div></div></div>
+    <p style="margin-top:14px;color:#94a3b8;font-size:13px">Estetica de la Pagina General.</p></div>
+  </div>
+</div>
+
+<footer>© 2026 FourGym - Sonaguera, Colón - Tel: 9309-2216 | INSTITUTO FRAY BARTOLOMÉ DE LAS CASAS<br>
+Hecho por Alex Daniel Rivera Isasi, Santo Josue Acosta, Ivan Isai Goméz</footer>
+
+<a href="https://wa.me/50498761234" target="_blank" style="position:fixed;bottom:20px;right:20px;width:56px;height:56px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;text-decoration:none;box-shadow:0 8px 24px rgba(37,211,102,.5)">💬</a>
+
+<script>
+// FUNCIONES EDITABLES - PUEDES CAMBIAR FACIL
+function scrollToId(id){const el=document.getElementById(id);if(el){const y=el.getBoundingClientRect().top+window.pageYOffset-70;window.scrollTo({top:y,behavior:'smooth'});}}
+function toggleMobile(){const m=document.getElementById('mobileMenu');m.style.display=m.style.display==='flex'?'none':'flex';}
+function enviarInscripcion(e){e.preventDefault();const nombre=document.getElementById('inscNombre').value;const tel=document.getElementById('inscTel').value;const plan=document.getElementById('inscPlan').value;if(!nombre){alert('Ingresa tu nombre');return}alert(`¡Gracias ${nombre}! Tu inscripción al ${plan} fue enviada. Te contactaremos al ${tel}`);e.target.reset();}
+function calcularIMC(e){e.preventDefault();const peso=parseFloat(document.getElementById('peso').value);const altura=parseFloat(document.getElementById('altura').value);if(!peso||!altura){alert('Ingresa peso y altura válidos Ej: 70 y 1.70');return}const imc=peso/(altura*altura);let cat='',color='',msg='';if(imc<18.5){cat='Bajo peso';color='#3b82f6';msg='¡Vamos a ganar masa muscular juntos en FourGym!';}else if(imc<25){cat='Normal - ¡Excelente!';color='#10b981';msg='¡Estás en forma! Mantén tu nivel con FourGym.';}else if(imc<30){cat='Sobrepeso';color='#f59e0b';msg='Es momento de activarte. Te guiamos en FourGym.';}else{cat='Obesidad';color='#ef4444';msg='No estás solo. Te apoyamos con evaluación gratis.';}const div=document.getElementById('resultadoIMC');div.style.display='block';div.style.background=color+'20';div.style.border='2px solid '+color;div.style.color=color;div.innerHTML=`IMC: ${imc.toFixed(1)} - ${cat}<br><span style="font-size:13px;font-weight:600;color:#0a1931">${msg}</span>`;}
+function enviarContacto(e){e.preventDefault();const nombre=document.getElementById('contNombre').value;const email=document.getElementById('contEmail').value;const motivo=document.getElementById('contMotivo').value;if(!nombre){alert('Ingresa tu nombre');return}alert(`¡Gracias ${nombre}! Tu mensaje sobre "${motivo}" fue enviado. Te responderemos a ${email}`);e.target.reset();}
+</script>
+</body>
+</html>
